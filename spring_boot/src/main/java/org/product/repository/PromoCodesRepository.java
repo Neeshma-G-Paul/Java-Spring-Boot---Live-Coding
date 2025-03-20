@@ -1,6 +1,6 @@
-package org.example.repository;
+package org.product.repository;
 
-import org.example.entity.PromoCodes;
+import org.product.entity.PromoCodes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

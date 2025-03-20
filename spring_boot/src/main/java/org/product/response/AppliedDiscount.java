@@ -1,4 +1,4 @@
-package org.example.response;
+package org.product.response;
 
 import lombok.Data;
 

@@ -1,18 +1,18 @@
-package org.example.service.serviceImpl;
+package org.product.service.serviceImpl;
 
-import org.example.entity.Product;
-import org.example.entity.PromoCodes;
-import org.example.entity.QuantityDiscount;
-import org.example.entity.UserTypes;
-import org.example.repository.ProductRepository;
-import org.example.repository.PromoCodesRepository;
-import org.example.repository.QuantityDiscountRepository;
-import org.example.repository.UserTypeRepository;
-import org.example.request.ProductRequest;
-import org.example.response.AppliedDiscount;
-import org.example.response.ProductResponse;
-import org.example.service.ProductService;
-import org.example.util.CommonUtil;
+import org.product.entity.Product;
+import org.product.entity.PromoCodes;
+import org.product.entity.QuantityDiscount;
+import org.product.entity.UserTypes;
+import org.product.repository.ProductRepository;
+import org.product.repository.PromoCodesRepository;
+import org.product.repository.QuantityDiscountRepository;
+import org.product.repository.UserTypeRepository;
+import org.product.request.ProductRequest;
+import org.product.response.AppliedDiscount;
+import org.product.response.ProductResponse;
+import org.product.service.ProductService;
+import org.product.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +44,12 @@ public class ProductServiceImpl implements ProductService {
             Double finalPrice = product.get().getBasePrice();
             if (!productRequest.getUserType().isEmpty()) {
                 finalPrice = getFinalPriceForUserTypes(productRequest.getUserType(), finalPrice,appliedDiscounts);
-            } else if (!productRequest.getPromoCode().isEmpty()) {
+            }
+            if (!productRequest.getPromoCode().isEmpty()) {
                 finalPrice = getFinalPriceForPromoCode(productRequest.getPromoCode(),finalPrice,appliedDiscounts);
-            }else {
-                finalPrice = getFinalPriceForQuantity(productRequest.getQuantity(),finalPrice,appliedDiscounts);
+            }
+            if(productRequest.getQuantity()>0){
+                finalPrice = getFinalPriceForQuantity(productRequest.getQuantity(),finalPrice);
             }
             productRequest.setProductId(product.get().getId());
             productResponse.setOriginalPrice(product.get().getBasePrice());
@@ -59,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
         return productResponse;
     }
 
-    private Double getFinalPriceForQuantity(Integer quantity, Double finalPrice, List<AppliedDiscount> appliedDiscounts) {
+    private Double getFinalPriceForQuantity(Integer quantity, Double finalPrice) {
         Double discount = 0.0;
         List<QuantityDiscount> quantityDiscounts = quantityDiscountRepository.findAll();
         List<Integer> quantityList = quantityDiscounts.stream().map(QuantityDiscount::getMinQuantity).toList();

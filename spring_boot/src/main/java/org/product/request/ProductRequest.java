@@ -1,6 +1,5 @@
-package org.example.request;
+package org.product.request;
 
-import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 @Data

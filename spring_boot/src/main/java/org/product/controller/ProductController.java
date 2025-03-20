@@ -1,9 +1,9 @@
-package org.example.controller;
+package org.product.controller;
 
 
-import org.example.request.ProductRequest;
-import org.example.response.ProductResponse;
-import org.example.service.ProductService;
+import org.product.request.ProductRequest;
+import org.product.response.ProductResponse;
+import org.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package org.example.util;
+package org.product.util;
 
 public class CommonUtil {
 
